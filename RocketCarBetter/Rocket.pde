@@ -48,7 +48,7 @@ class Rocket {
     fitness = pow(fitness, 6);
 
     if (hitObstacle) fitness *= 0.1; // lose 90% of fitness hitting an obstacle
-    if (hitTarget) fitness *= 2; // twice the fitness for finishing!
+    if (hitTarget) fitness *= 100; // twice the fitness for finishing!
   }
 
   // Run in relation to all the obstacles
@@ -61,10 +61,8 @@ class Rocket {
       // If I hit an edge or an obstacle
       obstacles(os);
     }
-    // Draw me!
-    //if (!hitObstacle) {
+
     display();
-    //}
   }
 
   // Did I make it to the target?
@@ -86,7 +84,7 @@ class Rocket {
         hitObstacle = true;
       }
     }
-    if (position.x > width + 20 || position.x < -20 ||position.y > height + 20 || position.y < -20 )
+    if (position.x > width + 20 || position.x < -20 ||position.y > height || position.y < -20 )
       hitObstacle = true;
   }
 
