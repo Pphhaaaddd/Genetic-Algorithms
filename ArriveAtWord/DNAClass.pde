@@ -27,7 +27,8 @@ class DNA {
         }
      }
      
-     fitness = (float)score / (float)target.length();
+     //fitness = (float)score / (float)target.length();
+     fitness = pow((float)score,3);
   }
   
   // Crossover

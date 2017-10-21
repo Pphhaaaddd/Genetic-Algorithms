@@ -9,7 +9,7 @@ void setup() {
   f = createFont("Courier", 32, true);
   target = "There are many ways to do this, but here I am";
   popmax = 800;
-  mutationRate = 0.003;
+  mutationRate = 0.01;
 
   // Create a populationation with a target phrase, mutation rate, and populationation max
   population = new Population(target, mutationRate, popmax);
@@ -48,7 +48,7 @@ void displayInfo() {
   textSize(18);
   text("total generations:     " + population.getGenerations(), 20, 160);
   text("average fitness:       " + nf(population.getAverageFitness(), 0, 2), 20, 180);
-  text("total population: " + popmax, 20, 200);
+  text("total population:      " + popmax, 20, 200);
   text("mutation rate:         " + int(mutationRate * 100) + "%", 20, 220);
  
   textSize(10);

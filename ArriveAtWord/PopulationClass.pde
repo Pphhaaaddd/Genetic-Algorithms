@@ -6,7 +6,7 @@ class Population {
   String target;                // Target phrase
   int generations;              // Number of generations
   boolean finished;             // Are we finished evolving?
-  int perfectScore;
+  float perfectScore;
 
   Population(String p, float m, int num) {
     target = p;
@@ -20,7 +20,12 @@ class Population {
     finished = false;
     generations = 0;
     
-    perfectScore = 1;
+    //Get fitness for the target string
+    DNA targetDNA=new DNA(target.length());
+    for(int i=0;i<target.length();i++)
+      targetDNA.genes[i] = target.charAt(i);
+    targetDNA.fitness(target);
+    perfectScore = targetDNA.fitness;
   }
 
   // Fill our fitness array with a value for every member of the population
