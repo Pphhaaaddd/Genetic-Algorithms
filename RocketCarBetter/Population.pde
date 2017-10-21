@@ -11,7 +11,7 @@ class Population {
     generations = 0;
     //make a new set of creatures
     for (int i = 0; i < population.length; i++) {
-      PVector position = new PVector(width/2, height+20);
+      PVector position = new PVector(0, height/2);
       population[i] = new Rocket(position, new DNA(), population.length);
     }
   }
@@ -42,6 +42,7 @@ class Population {
 
   // Making the next generation
   void reproduction() {
+    probFitness();
     // Refill the population with children from the mating pool
     Rocket[] newPop = new Rocket[population.length];
     for (int i = 0; i < population.length; i++) {
@@ -57,7 +58,7 @@ class Population {
       // Mutate their genes
       child.mutate(mutationRate);
       // Fill the new population with the new child
-      PVector position = new PVector(width/2, height+20);
+      PVector position = new PVector(0, height/2);
       newPop[i] = new Rocket(position, child, population.length);
     }
     population = newPop;
@@ -65,13 +66,21 @@ class Population {
   }
 
   Rocket acceptReject() {
-    while (true) {
-      int index = floor(random(population.length));
-      float r = random(getMaxFitness());
-      Rocket partner = population[index];
-      if (r < partner.fitness)  
-        return partner;
+    int index = 0;
+    float r = random(1);
+    while (r>0) {
+      r -= population[index].prob;
+      index++;
     }
+    return population[index-1];
+  }
+
+  void probFitness() {
+    float totalFitness =0.0;
+    for (int i = 0; i < population.length; i++) 
+      totalFitness +=population[i].fitness;
+    for (int i = 0; i < population.length; i++) 
+      population[i].prob = population[i].fitness/totalFitness;
   }
 
   int getGenerations() {

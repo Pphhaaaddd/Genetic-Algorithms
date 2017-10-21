@@ -4,6 +4,7 @@ class Rocket {
   PVector position;
   PVector velocity;
   PVector acceleration;
+  float prob=0.0;
 
   // Size
   float r;
@@ -25,7 +26,7 @@ class Rocket {
   Rocket(PVector l, DNA dna_, int totalRockets) {
     acceleration = new PVector();
     velocity = new PVector();
-    position = l.get();
+    position = l;
     r = 4;
     dna = dna_;
     finishTime = 0;          // We're going to count how long it takes to reach target
@@ -61,9 +62,9 @@ class Rocket {
       obstacles(os);
     }
     // Draw me!
-    if (!hitObstacle) {
-      display();
-    }
+    //if (!hitObstacle) {
+    display();
+    //}
   }
 
   // Did I make it to the target?
@@ -73,8 +74,7 @@ class Rocket {
 
     if (target.contains(position) && !hitTarget) {
       hitTarget = true;
-    } 
-    else if (!hitTarget) {
+    } else if (!hitTarget) {
       finishTime++;
     }
   }
@@ -86,6 +86,8 @@ class Rocket {
         hitObstacle = true;
       }
     }
+    if (position.x > width + 20 || position.x < -20 ||position.y > height + 20 || position.y < -20 )
+      hitObstacle = true;
   }
 
   void applyForce(PVector f) {
@@ -110,17 +112,17 @@ class Rocket {
     rotate(theta);
 
     // Thrusters
-    rectMode(CENTER);
-    fill(0);
-    rect(-r/2, r*2, r/2, r);
-    rect(r/2, r*2, r/2, r);
+    //rectMode(CENTER);
+    //fill(0);
+    //rect(-r/2, r*2, r/2, r);
+    //rect(r/2, r*2, r/2, r);
 
     // Rocket body
-    fill(175);
+    fill(0);
     beginShape(TRIANGLES);
     vertex(0, -r*2);
-    vertex(-r, r*2);
-    vertex(r, r*2);
+    vertex(-r/2, r*2);
+    vertex(r/2, r*2);
     endShape();
 
     popMatrix();
